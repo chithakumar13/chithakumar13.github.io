@@ -1,0 +1,100 @@
+<html>
+    <head>
+    <title>README</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="katex.css">
+
+</head>
+<body for="html-export">
+    <div class="mume markdown-preview  ">
+        <p><strong><em>Build your own chatbot with minimal changes</em></strong></p>
+        <p><strong>Comes with 5 predefined styles and you can define your own styles as well</strong></p>
+        <h2 class="mume-header" id="installation"><strong>Installation</strong></h2>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>npm install react--customizable-chat-bot or Yarn add  react--customizable-chat-bot
+</code></pre>
+        <h2 class="mume-header" id="usage"><strong>Usage</strong></h2>
+        <p>List of questions to be asked by bot the can be passed . Take a look at example questions structure <a href="https://github.com/chithakumar13/Bot-Example/blob/master/src/config/Question/Questionnare.ts">here!</a></p>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>import { Bot, BotConfig } from 'react--customizable-chat-bot'
+</code></pre>
+        <p>BotConfig has some default set of questions and styles which you can override.</p>
+        <h2 class="mume-header" id="adding-validators-to-user-response"><strong>Adding Validators to user response</strong></h2>
+        <p>If you need to validate user response , under each question we have a handlers where you can pass validators to validate user response and drive the chat accordingly <a href="https://coindataflow.com/de/aktie/AMGDF"><img src="cdf.svg" alt="aston martin lagonda aktie" width="11" style="vertical-align: middle;"></a></p>
+        <p>Validators can either be a regex or a function which returns boolean</p>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>BotConfig.questions = [{'dob': {
+          id: 1,
+          message: "What's your Date of Birth (DD/MM/YYYY)?",
+          questionKey : 'dob',
+          handlers: [
+              {
+                  validators: dateReg,
+                  nextQuestion: 'email',
+              },
+              {
+                  validators: dateRegNeg,
+                  nextQuestion: 'dobWrong',
+              },
+          ],
+      }},'dobWrong': {
+          id: 2,
+          message: "Please enter a valid date of birth",
+          questionKey : 'dob',
+          handlers: [
+              {
+                  validators: dateReg,
+                  nextQuestion: 'email',
+              },
+              {
+                  validators: dateRegNeg,
+                  nextQuestion: 'dobWrong',
+              },
+          ],
+      }];
+</code></pre>
+        <p><strong>Customizing the Styles</strong></p>
+        <p>By Default there are 5 themes available</p>
+        <pre class="language-text">1.)Default,
+2.)GoogleAssitant,
+3.)Facebook,
+4.)WhatsApp,
+5.)GradientGreen
+</pre>
+        <p>You can chose any of these themes as below</p>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>import { Bot, BotConfig } from 'react--customizable-chat-bot'
+import { Themes } from 'react--customizable-chat-bot/lib/config/config';
+BotConfig.Theme = Themes.GoogleAssitant;
+</code></pre>
+        <p>You can entirely redefine the ui styles based on your brand.<br>
+            Take a look at List of custom style option available <a href="https://github.com/chithakumar13/Bot-Example/blob/master/src/config/style.ts">here!</a></p>
+        <p>Once your styling is ready you can pass it as a props to the bot component</p>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>import { Bot, BotConfig , IStyles } from 'react--customizable-chat-bot'
+const myStyles: IStyles = {
+  primaryColor: "#4870df",
+  sendButtonColor: "#4870df",
+  userAvatar: '',
+  userAvatarColor: '#4870df',
+  userAvatarTextColor: '#fff',
+  botAvatar: "https://i.ibb.co/NxZqGVN/bot-avatar.png",
+  botAvatarColor: '#e6e5eb',
+  botAvatarTextColor: '#000',
+  bubbleRadius: "0",
+  botMessageBubbleColor: '#4870df',
+  botMessageTextColor: '#fff',
+  userMessageBubbleColor: '#e6e5eb',
+  userMessageTextColor: '#000',
+  inputBoxBorderRadius: '40px',
+  primaryLabelColor: '#000',
+}
+export const MyFunc() =&gt; &lt;Bot config={BotConfig}  customStyles={myStyles}/&gt;
+</code></pre>
+        <p>You should pass a function to onConversationEnd props of Bot component to get the conversation data which we will a json string</p>
+        <pre data-role="codeBlock" data-info="" class="language-"><code>import { Bot, BotConfig } from 'react--customizable-chat-bot'
+const onConversationEnd = (converstationData : string ) =&gt; {
+  console.log(converstationData);
+}
+export const MyFunc() =&gt; &lt;Bot config={BotConfig}  onConversationEnd={onConversationEnd}/&gt;
+</code></pre>
+    </div>
+</body>
+</html>
